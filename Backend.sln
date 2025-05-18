@@ -2,13 +2,13 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserService", "UserService", "{5C4BE002-014B-4E06-B4DB-B510E78CD225}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.API", "UserService\UserService.API\UserService.API.csproj", "{4797EAFE-0F28-4A3D-8734-B3DEF1C827A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.API", "Backend\UserService\UserService.API\UserService.API.csproj", "{4797EAFE-0F28-4A3D-8734-B3DEF1C827A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Application", "UserService\UserService.Application\UserService.Application.csproj", "{4239A742-CA18-4E86-A3BB-01B3A657F782}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Application", "Backend\UserService\UserService.Application\UserService.Application.csproj", "{4239A742-CA18-4E86-A3BB-01B3A657F782}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Domain", "UserService\UserService.Domain\UserService.Domain.csproj", "{7EC6F1F7-0D79-4605-A6D0-741F71A90EF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Domain", "Backend\UserService\UserService.Domain\UserService.Domain.csproj", "{7EC6F1F7-0D79-4605-A6D0-741F71A90EF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Infrastructure", "UserService\UserService.Infrastructure\UserService.Infrastructure.csproj", "{9C8D4298-4F84-48E9-A8B5-364C03E6B0FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Infrastructure", "Backend\UserService\UserService.Infrastructure\UserService.Infrastructure.csproj", "{9C8D4298-4F84-48E9-A8B5-364C03E6B0FB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NoteService", "NoteService", "{B286986D-4318-411A-8592-048AD35ABB53}"
 EndProject
