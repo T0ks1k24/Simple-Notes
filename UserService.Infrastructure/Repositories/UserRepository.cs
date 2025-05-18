@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UserService.Application.Interfaces;
 using UserService.Domain.Entities;
+using UserService.Domain.Models;
 using UserService.Infrastructure.Data;
 
 namespace UserService.Infrastructure.Repositories;
@@ -31,5 +32,21 @@ public class UserRepository : IUserRepository
     {
         await _dbContext.Users.AddAsync(user);
         return await _dbContext.SaveChangesAsync() > 0;
+    }
+
+    public async Task<ViewUser> GetById(Guid id)
+    { 
+        var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+        return new ViewUser
+        {
+            Name = user?.Name,
+            Email = user?.Email,
+            Role = user?.Role
+        };
+    }
+
+    public async Task<List<User>> GetAll()
+    {
+        return await _dbContext.Users.AsNoTracking().ToListAsync();
     }
 }

@@ -29,15 +29,12 @@ public class AuthService : IAuthService
         return await _userRepository.CreateUser(addUser);
     }
 
-    public async Task<AuthenticateDTO> AuthenticateAsync(LoginDTO login)
+    public async Task<AuthenticateDTO?> AuthenticateAsync(LoginDTO login)
     {
         var user = await _userRepository.GetByEmail(login.Email);
         
-        if (user == null) return null;
-        
-        bool isPasswordValid = BCrypt.Net.BCrypt.Verify(login.Password, user.Password);
-        
-        if (!isPasswordValid) return null;
+        if (user == null || !BCrypt.Net.BCrypt.Verify(login.Password, user.Password))
+            return null;
         
         return new AuthenticateDTO
         {
