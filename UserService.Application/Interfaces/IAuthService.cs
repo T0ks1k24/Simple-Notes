@@ -7,5 +7,5 @@ namespace UserService.Application.Interfaces;
 public interface IAuthService
 {
     Task<bool> CreateUserAsync(RegisterDTO register);
-    Task<AuthenticateDTO> AuthenticateAsync(LoginDTO login);
+    // Task<AuthenticateDTO> AuthenticateAsync(LoginDTO login);
 }

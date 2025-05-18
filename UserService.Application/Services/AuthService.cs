@@ -1,5 +1,4 @@
 ﻿using UserService.Application.Interfaces;
-using UserService.Application.Models;
 using UserService.Application.Models.DTOs;
 using UserService.Domain.Entities;
 
@@ -29,17 +28,18 @@ public class AuthService : IAuthService
         return await _userRepository.CreateUser(addUser);
     }
 
-    public async Task<AuthenticateDTO?> AuthenticateAsync(LoginDTO login)
-    {
-        var user = await _userRepository.GetByEmail(login.Email);
-        
-        if (user == null || !BCrypt.Net.BCrypt.Verify(login.Password, user.Password))
-            return null;
-        
-        return new AuthenticateDTO
-        {
-            Name = user.Name,
-            Token = "Beaver: token"
-        };
-    }
+    // public async Task<AuthenticateDTO?> AuthenticateAsync(LoginDTO login)
+    // {
+    //     var user = await _userRepository.GetByEmail(login.Email);
+    //     
+    //     if (user == null || !BCrypt.Net.BCrypt.Verify(login.Password, user.Password))
+    //         return null;
+    //     
+    //     return new AuthenticateDTO
+    //     {
+    //         Name = user.Name,
+    //         Token = "Beaver: token",
+    //         ExpiresIn = 7
+    //     };
+    // }
 }
