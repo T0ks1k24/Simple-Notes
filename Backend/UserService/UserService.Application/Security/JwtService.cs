@@ -20,6 +20,7 @@ public class JwtService
         _userRepository = userRepository;
     }
 
+    //Method Authenticate User And Return Token
     public async Task<AuthenticateDTO> Authenticate(LoginDTO login)
     {
         if(string.IsNullOrWhiteSpace(login.Email) || string.IsNullOrWhiteSpace(login.Password))

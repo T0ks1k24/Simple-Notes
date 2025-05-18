@@ -13,12 +13,14 @@ public class UserService : IUserService
         _userRepository = userRepository;
     }
 
+    //Method Returns Information About The User
     public async Task<ViewUser> ProfileInfoUser(Guid id)
     {
         var user = await _userRepository.GetById(id);
         return user;
     }
 
+    //Method Returns All Users 
     public async Task<List<User>> GetAlLUser()
     {
         return await _userRepository.GetAll();

@@ -12,6 +12,7 @@ public class AuthService : IAuthService
         _userRepository = userRepository;
     }
 
+    //Method Register User And Verify Name, Email And Hash Password
     public async Task<bool> CreateUserAsync(RegisterDTO register)
     {
         if (string.IsNullOrWhiteSpace(register.Name) || string.IsNullOrWhiteSpace(register.Email) || string.IsNullOrWhiteSpace(register.Password))
@@ -27,19 +28,4 @@ public class AuthService : IAuthService
 
         return await _userRepository.CreateUser(addUser);
     }
-
-    // public async Task<AuthenticateDTO?> AuthenticateAsync(LoginDTO login)
-    // {
-    //     var user = await _userRepository.GetByEmail(login.Email);
-    //     
-    //     if (user == null || !BCrypt.Net.BCrypt.Verify(login.Password, user.Password))
-    //         return null;
-    //     
-    //     return new AuthenticateDTO
-    //     {
-    //         Name = user.Name,
-    //         Token = "Beaver: token",
-    //         ExpiresIn = 7
-    //     };
-    // }
 }

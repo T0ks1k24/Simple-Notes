@@ -20,7 +20,7 @@ public class UserController : ControllerBase
         _authService = authService;
         _jwtService = jwtService;
     }
-
+    
     [AllowAnonymous]
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterDTO register)
@@ -43,16 +43,6 @@ public class UserController : ControllerBase
         
         return Ok(result);
     }
-    
-    // [HttpPost("login")]
-    // public async Task<IActionResult> Login([FromBody] LoginDTO login)
-    // {
-    //     var result = await _authService.AuthenticateAsync(login);
-    //     if(result == null)
-    //         return BadRequest(new { message = "Invalid email or password" });
-    //     
-    //     return Ok(result);
-    // }
     
     // [Authorize]
     [HttpGet("profile/{id:guid}")]

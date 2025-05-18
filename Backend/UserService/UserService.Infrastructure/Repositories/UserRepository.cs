@@ -15,11 +15,13 @@ public class UserRepository : IUserRepository
         _dbContext = dbContext;
     }
 
+    //Method Get By Email On Info User
     public async Task<User?> GetByEmail(string email)
     {
         return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
     }
 
+    //Method Get By Name In User List Information
     public async Task<List<User>> GetByName(string namePart)
     {
         return await _dbContext.Users
@@ -28,12 +30,14 @@ public class UserRepository : IUserRepository
             .ToListAsync();
     }
 
+    //Method Create User 
     public async Task<bool> CreateUser(User user)
     {
         await _dbContext.Users.AddAsync(user);
         return await _dbContext.SaveChangesAsync() > 0;
     }
 
+    //Method Get By Id On Information User
     public async Task<ViewUser> GetById(Guid id)
     { 
         var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
@@ -45,6 +49,7 @@ public class UserRepository : IUserRepository
         };
     }
 
+    //Method Get All User For Admin
     public async Task<List<User>> GetAll()
     {
         return await _dbContext.Users.AsNoTracking().ToListAsync();
