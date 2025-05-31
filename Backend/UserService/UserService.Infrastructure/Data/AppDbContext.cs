@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using UserService.Application.Models;
 using UserService.Domain.Entities;
 
 namespace UserService.Infrastructure.Data;
@@ -10,4 +11,6 @@ public class AppDbContext : DbContext
     
     //DbSet Table
     public DbSet<User> Users { get; set; }
+    
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
 }

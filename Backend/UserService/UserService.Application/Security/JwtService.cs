@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -20,10 +21,12 @@ public class JwtService
         _userRepository = userRepository;
     }
 
+    public sealed record Response(string AccessToken, string RefreshToken);
+    
     //Method Authenticate User And Return Token
-    public async Task<AuthenticateDTO> Authenticate(LoginDTO login)
+    public async Task<Response> Authenticate(LoginDTO login)
     {
-        if(string.IsNullOrWhiteSpace(login.Email) || string.IsNullOrWhiteSpace(login.Password))
+        if (string.IsNullOrWhiteSpace(login.Email) || string.IsNullOrWhiteSpace(login.Password))
             return null;
         
         var userAccount = await _userRepository.GetByEmail(login.Email);
@@ -33,32 +36,41 @@ public class JwtService
         
         var issuer = _configuration["JwtConfig:Issuer"];
         var audience = _configuration["JwtConfig:Audience"];
-        var key = _configuration["JwtConfig:Key"];
+        var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JwtConfig:Key"]));
         var tokenValidatyDays = int.Parse(_configuration["JwtConfig:TokenValidityDays"]);
-        var tokenExpiryTimeStamp = DateTime.UtcNow.AddDays(tokenValidatyDays);
+        var tokenExpiryTimeStamp = DateTime.UtcNow.AddHours(tokenValidatyDays);
+        var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
             {
-                new Claim(JwtRegisteredClaimNames.Email, login.Email)
+                new Claim(JwtRegisteredClaimNames.Name, userAccount.Name),
+                new Claim(JwtRegisteredClaimNames.Email, userAccount.Email),
+                new Claim(ClaimTypes.Role, userAccount.Role),
             }),
             Expires = tokenExpiryTimeStamp,
             Issuer = issuer,
             Audience = audience,
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
-                SecurityAlgorithms.HmacSha512Signature),
+            SigningCredentials = signingCredentials,
         };
         
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-        var accessToken = tokenHandler.WriteToken(securityToken);
-
-        return new AuthenticateDTO
+        var handler = new JwtSecurityTokenHandler();
+        var token = handler.CreateToken(tokenDescriptor);
+        var accessToken = handler.WriteToken(token);
+        var refreshToken = new RefreshToken
         {
-            Name = userAccount.Name,
-            Token = accessToken,
-            ExpiresIn = tokenValidatyDays
+            Id = Guid.NewGuid(),
+            UserId = userAccount.Id,
+            Token = GenerateRefreshToken(),
+            ExpiresOnUtc = DateTime.UtcNow.AddDays(7)
         };
+
+        return new Response(accessToken, refreshToken.Token);
+    }
+
+    public string GenerateRefreshToken()
+    {
+        return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
     }
 }
