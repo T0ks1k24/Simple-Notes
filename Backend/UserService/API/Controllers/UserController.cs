@@ -32,16 +32,16 @@ public class UserController : ControllerBase
             return BadRequest(new { message = "Invalid user data" });
         
     }
-
+    
     [AllowAnonymous]
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginDTO login)
     {
-        var result = await _jwtService.Authenticate(login);
-        if(result == null)
+        var Response = await _jwtService.CreateAccessTokenFromUser(login.Email, login.Password);
+        if(Response == null)
             return BadRequest(new { message = "Invalid email or password" });
         
-        return Ok(result);
+        return Ok(Response);
     }
     
     // [Authorize]
