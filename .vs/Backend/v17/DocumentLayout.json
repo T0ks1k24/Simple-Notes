@@ -54,8 +54,7 @@
               "RelativeToolTip": "backend\\UserService\\UserService.Infrastructure\\Repositories\\UserRepository.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T16:22:36.699Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-31T16:22:36.699Z"
             },
             {
               "$type": "Document",
@@ -67,8 +66,7 @@
               "RelativeToolTip": "backend\\UserService\\UserService.Domain\\Entities\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T16:22:22.541Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-31T16:22:22.541Z"
             },
             {
               "$type": "Document",
@@ -80,21 +78,19 @@
               "RelativeToolTip": "backend\\UserService\\UserService.Application\\Security\\JwtService.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAgwB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T16:20:31.354Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-31T16:20:31.354Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "UserService.Domain",
+              "Title": "UserService.Domain.csproj",
               "DocumentMoniker": "D:\\coding\\simple-notes\\Backend\\UserService\\UserService.Domain\\UserService.Domain.csproj",
               "RelativeDocumentMoniker": "Backend\\UserService\\UserService.Domain\\UserService.Domain.csproj",
               "ToolTip": "D:\\coding\\simple-notes\\Backend\\UserService\\UserService.Domain\\UserService.Domain.csproj",
               "RelativeToolTip": "Backend\\UserService\\UserService.Domain\\UserService.Domain.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-05-31T14:55:45.343Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-31T14:55:45.343Z"
             },
             {
               "$type": "Document",
@@ -106,8 +102,7 @@
               "RelativeToolTip": "backend\\UserService\\UserService.API\\Controllers\\UserController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T14:05:12.091Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-31T14:05:12.091Z"
             },
             {
               "$type": "Document",
@@ -119,8 +114,7 @@
               "RelativeToolTip": "backend\\UserService\\UserService.API\\appsettings.Development.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-05-31T14:05:08.77Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-31T14:05:08.77Z"
             },
             {
               "$type": "Document",
@@ -132,8 +126,7 @@
               "RelativeToolTip": "backend\\UserService\\UserService.API\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-05-31T14:05:06.429Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-31T14:05:06.429Z"
             },
             {
               "$type": "Document",
@@ -143,7 +136,7 @@
               "RelativeDocumentMoniker": "backend\\UserService\\UserService.API\\Program.cs",
               "ToolTip": "D:\\coding\\simple-notes\\backend\\UserService\\UserService.API\\Program.cs",
               "RelativeToolTip": "backend\\UserService\\UserService.API\\Program.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACEAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAADMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-31T14:04:57.062Z",
               "EditorCaption": ""
