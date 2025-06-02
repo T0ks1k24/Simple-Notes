@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
-using Domain.Models;
 
 namespace Infrastructure.Data;
 
@@ -11,7 +10,6 @@ public class AppDbContext : DbContext
     
     //DbSet Table
     public DbSet<User> Users { get; set; }
-    
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)

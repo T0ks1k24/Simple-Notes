@@ -1,6 +1,9 @@
 ﻿using Application.Interfaces;
 using Application.Services;
-using Domain.Models.Login;
+using Domain.Models.JwtTokenApi;
+using Domain.Models.LoginApi;
+using Domain.Models.RefreshTokenApi;
+using Domain.Models.RegisterApi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,16 +14,45 @@ namespace API.Controllers;
 public class AccountController : ControllerBase
 {
     private readonly JwtAuthenticationService _jwtAuthenticationService;
-    
-    public AccountController(JwtAuthenticationService jwtAuthenticationService) =>
+    private readonly IAuthService _authService;
+
+    public AccountController(JwtAuthenticationService jwtAuthenticationService, IAuthService authService)
+    {
         _jwtAuthenticationService = jwtAuthenticationService;
+        _authService = authService;
+    }
+       
 
     [AllowAnonymous]
     [HttpPost("login")]
-    public async Task<ActionResult<LoginResponseModel>> Login([FromBody] LoginRequestModel request)
+    public async Task<ActionResult<JwtToken>> Login([FromBody] LoginRequestModel request)
     {
-        var result = await _jwtAuthenticationService.Authenticate(request);
+        var result = await _authService.LoginAsync(request);
         return result is not null ? result : Unauthorized();
     }
+
+    [AllowAnonymous]
+    [HttpPost("refresh")]
+    public async Task<ActionResult<LoginResponseModel?>> Refresh([FromBody] RefreshRequestModel request)
+    {
+        if(string.IsNullOrWhiteSpace(request.Token))
+            return BadRequest("Invalid Token");
+        
+        var result = await _jwtAuthenticationService.ValidateRefreshToken(request.Token);
+        return result is not null ? result : Unauthorized();
+    }
+    
+    [AllowAnonymous]
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] RegisterRequestApi register)
+    {
+        var result = await _authService.CreateUserAsync(register);
+        if (result)
+            return Ok(new { message = "User created successfully" });
+        else
+            return BadRequest(new { message = "Invalid user data" });
+        
+    }
+
     
 }

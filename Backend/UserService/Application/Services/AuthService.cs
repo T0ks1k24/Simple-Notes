@@ -1,28 +1,28 @@
 ﻿using Application.Interfaces;
-using Domain.DTOs;
 using Domain.Entities;
+using Domain.Models.JwtTokenApi;
+using Domain.Models.LoginApi;
+using Domain.Models.RegisterApi;
 
 namespace Application.Services;
 
 public class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
-    private readonly JwtService _jwtService;
-    public AuthService(IUserRepository userRepository, JwtService jwtService)
+    private readonly JwtAuthenticationService _jwtAuthenticationService;
+    public AuthService(IUserRepository userRepository, JwtAuthenticationService jwtAuthenticationService)
     {
         _userRepository = userRepository;
-        _jwtService = jwtService;
+        _jwtAuthenticationService = jwtAuthenticationService;
     }
     
-    public sealed record JwtResponse(string accessToken, string refreshToken);
-
     //Method Register User And Verify Name, Email And Hash Password
-    public async Task<bool> CreateUserAsync(RegisterDTO register)
+    public async Task<bool> CreateUserAsync(RegisterRequestApi register)
     {
         if (string.IsNullOrWhiteSpace(register.Name) || string.IsNullOrWhiteSpace(register.Email) || string.IsNullOrWhiteSpace(register.Password))
             throw new ApplicationException("The name, email or password is invalid.");
         
-        var existingUser = await _userRepository.GetByEmail(register.Email);
+        var existingUser = await _userRepository.GetUserByEmail(register.Email);
         if (existingUser != null)
             throw new ApplicationException("The email is already taken.");
             
@@ -31,7 +31,7 @@ public class AuthService : IAuthService
         
         var addUser = new User
         {
-            Name = register.Name,
+            Username = register.Name,
             Email = register.Email,
             Password = hashedPassword,
         };
@@ -39,21 +39,14 @@ public class AuthService : IAuthService
         return await _userRepository.CreateUser(addUser);
     }
     
-    public async Task<JwtResponse> LoginAsync(LoginDTO login)
+    public async Task<JwtToken> LoginAsync(LoginRequestModel login)
     {
-        if(string.IsNullOrWhiteSpace(login.Email) || string.IsNullOrWhiteSpace(login.Password))
-            throw new ApplicationException("The email or password is invalid.");
+        var response = await _jwtAuthenticationService.Authenticate(login);
         
-        var user = await _userRepository.GetByEmail(login.Email);
-        if (user == null)
-            throw new ApplicationException("The email or password is invalid.");
-        
-        if (!BCrypt.Net.BCrypt.Verify(login.Password, user.Password))
-            throw new ApplicationException("The email or password is invalid.");
-
-        var accessToken = _jwtService.CreateAccessTokenFromUser(user);
-        var refreshToken = _jwtService.GenerateRefreshToken();
-        
-        return new JwtResponse(await accessToken, refreshToken);
+        return new JwtToken
+        {
+            AccessToken = response.AccessToken,
+            RefreshToken = response.RefreshToken
+        };
     }
 }

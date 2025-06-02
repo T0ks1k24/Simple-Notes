@@ -1,13 +1,16 @@
 ﻿using Domain.Entities;
-using Domain.Models;
 
 namespace Application.Interfaces;
 
 public interface IUserRepository
 {
-    Task<User?> GetByEmail(string email);
-    Task<List<User>> GetByName(string namePart);
+    Task<List<User>> GetAllUser();
+    Task<User> GetUserById(Guid id);
+    Task<User?> GetUserByEmail(string email);
+    Task<List<User>> GetUserByName(string namePart);
     Task<bool> CreateUser(User user);
-    Task<ViewUser> GetById(Guid id);
-    Task<List<User>> GetAll();
+    Task<bool> UpdateUser(User user);
+    Task DeleteUser(User user);
+    
+    
 }

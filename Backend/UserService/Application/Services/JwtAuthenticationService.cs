@@ -13,21 +13,23 @@ public class JwtAuthenticationService
 {
      private readonly IConfiguration _configuration;
      private readonly IUserRepository _userRepository;
+     private readonly IRefreshTokenRepository _refreshTokenRepository;
 
-     public JwtAuthenticationService(IConfiguration configuration, IUserRepository userRepository)
+     public JwtAuthenticationService(IConfiguration configuration, IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository)
      {
           _configuration = configuration;
           _userRepository = userRepository;
+          _refreshTokenRepository = refreshTokenRepository;
      }
 
      public async Task<LoginResponseModel?> Authenticate(LoginRequestModel request)
      {
           if (string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))
-               return null;
+               throw new ApplicationException("The email or password is invalid.");
           
-          var user = await _userRepository.GetByEmail(request.Email);
+          var user = await _userRepository.GetUserByEmail(request.Email);
           if (user is null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password!))
-               return null;
+               throw new ApplicationException("The email or password is invalid.");
           
           return await GenerateJwtToken(user);
      }
@@ -41,9 +43,10 @@ public class JwtAuthenticationService
           var tokenExpiryTimeStamp = DateTime.UtcNow.AddHours(tokenValidityHours);
 
           var token = new JwtSecurityToken(issuer, audience, [
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                    new Claim(ClaimTypes.Name, user.Username),
-                    new Claim(ClaimTypes.Role, user.Role),
+                    new Claim("name", user.Username),
+                    new Claim("role", user.Role),
                ],
                expires: tokenExpiryTimeStamp,
                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key),
@@ -55,21 +58,39 @@ public class JwtAuthenticationService
                Username = user.Username,
                AccessToken = accessToken,
                ExpiresIn = (int)tokenExpiryTimeStamp.Subtract(DateTime.UtcNow).TotalSeconds,
+               RefreshToken = await GenerateRefreshToken(user.Id)
           };
      }
-
-     private async Task<string> GenerateRefreshToken(int userId)
+     
+     public async Task<LoginResponseModel?> ValidateRefreshToken(string token)
      {
-          var refreshTokenValidityHours = int.Parse(_configuration["JwtConfig:RefreshTokenValidityHours"]);
+          var refreshToken = await _refreshTokenRepository.GetValidRefreshToken(token);
+          if (refreshToken is null || refreshToken.Expiry < DateTime.UtcNow)
+          {
+               return null;
+          }
+
+          await _refreshTokenRepository.DeleteRefreshToken(refreshToken.Id);
+          
+          var user = await _userRepository.GetUserById(refreshToken.UserId);
+          if (user is null) return null;
+
+          return await GenerateJwtToken(user);
+     }
+     
+     private async Task<string> GenerateRefreshToken(Guid userId)
+     {
+          var refreshTokenValidityDays = int.Parse(_configuration["JwtConfig:RefreshTokenValidityDays"]);
           var refreshToken = new RefreshToken
           {
+               Id = Guid.NewGuid(),
                Token = Guid.NewGuid().ToString(),
-               Expiry = DateTime.UtcNow.AddMinutes(refreshTokenValidityHours)
-               UserId = userId
-          };
-          await _refreshTokenRepository.Create(refreshToken);
+               Expiry = DateTime.UtcNow.AddDays(refreshTokenValidityDays),
+               UserId = userId,
+          }; 
+          await _refreshTokenRepository.DeleteRefreshTokenByUserId(refreshToken.UserId);
+          await _refreshTokenRepository.CreateRefreshToken(refreshToken);
           
           return refreshToken.Token;
-
      }
 }
