@@ -50,7 +50,7 @@ public class JwtAuthenticationService
                ],
                expires: tokenExpiryTimeStamp,
                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key),
-                    SecurityAlgorithms.HmacSha256Signature));
+                    SecurityAlgorithms.HmacSha256));
           
           var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
           return new LoginResponseModel

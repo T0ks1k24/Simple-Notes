@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Application.Interfaces;
-using Application.Services;
-using Domain.DTOs;
 
 namespace API.Controllers;
 
