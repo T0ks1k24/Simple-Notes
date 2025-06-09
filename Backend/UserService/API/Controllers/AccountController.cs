@@ -25,10 +25,16 @@ public class AccountController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost("login")]
-    public async Task<ActionResult<JwtToken>> Login([FromBody] LoginRequestModel request)
+    public async Task<ActionResult> Login([FromBody] LoginRequestModel request)
     {
         var result = await _authService.LoginAsync(request);
-        return result is not null ? result : Unauthorized();
+        if(result == null)
+            return Unauthorized(new { message = "Invalid email or password" });
+        return Ok(new
+        {
+            accesstoken = result.AccessToken,
+            refreshToken = result.RefreshToken,
+        });
     }
 
     [AllowAnonymous]

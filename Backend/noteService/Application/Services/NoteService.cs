@@ -17,7 +17,7 @@ public class NoteService : INoteService
         _noteListRepository = noteListRepository;
     }
     
-    public async Task CreateNoteAsync(NoteDto noteDto, Guid userId)
+    public async Task CreateNoteAsync(NoteAddDto noteDto, Guid userId)
     {
         var newNote = new Note
         {

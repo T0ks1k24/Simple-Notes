@@ -7,28 +7,33 @@ import { useNavigate } from 'react-router-dom';
 export default function Login({ onLoginSuccess }) {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    setSuccess("");
+    setLoading(true);
 
     try {
       const data = await login(form);
 
-      // Save localStorage
-      localStorage.setItem("accessToken", data.token);
-      localStorage.setItem("refreshToken", data.token);
-      setSuccess("Login successful!");
-      onLoginSuccess(data.token);
+      if(onLoginSuccess){
+        onLoginSuccess(data)
+      }
+
+      // // Save localStorage
+      // localStorage.setItem("accessToken", data.token);
+      // localStorage.setItem("refreshToken", data.refreshToken);
+      navigate("/");
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Login failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -38,7 +43,6 @@ export default function Login({ onLoginSuccess }) {
         <h2 className={styles.title}>Welcome back</h2>
 
         {error && <p className={styles.error}>{error}</p>}
-        {success && <p className={styles.success}>{success}</p>}
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <input
@@ -49,6 +53,8 @@ export default function Login({ onLoginSuccess }) {
             value={form.email}
             onChange={handleChange}
             required
+            disabled={loading}
+            autoComplete="username"
           />
           <input
             type="password"
@@ -58,14 +64,22 @@ export default function Login({ onLoginSuccess }) {
             value={form.password}
             onChange={handleChange}
             required
+            disabled={loading}
+            autoComplete="current-password"
           />
-          <button type="submit" className={styles.button}>
-            Login
+          <button
+            type="submit"
+            className={styles.button}
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+
         <button
           onClick={() => navigate("/register")}
           className={styles.linkButton}
+          disabled={loading}
         >
           Don’t have an account? Register
         </button>

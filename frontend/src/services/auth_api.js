@@ -1,51 +1,42 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'http://localhost:5090/api/account',
-  headers: {
-    'Content-Type': 'application/json'
-  }
+  baseURL: "http://localhost:5090/api/Account",
+  headers: { "Content-Type": "application/json" },
+  timeout: 10000,
 });
 
-export async function login({email, password}) {
+function extractErrorMessage(error) {
+  if (error.response?.data) {
+    return error.response.data.detail || JSON.stringify(error.response.data);
+  } else if (error.message) {
+    return error.message;
+  }
+  return "Unknown error";
+}
+
+export async function login({ email, password }) {
   try {
-    const response = await api.post('/login', {email, password});
+    const response = await api.post("/login", { email, password });
+    const { accesstoken: accessToken, refreshToken } = response.data;
 
-    const {token, refreshToken }= response.data;
-    
-    if (!token || !refreshToken) {
-      throw new Error('Token not received from server');
+    if (!accessToken || !refreshToken) {
+      throw new Error("Token not received from server");
     }
 
-    localStorage.setItem('token', token);
-    localStorage.setItem('refreshToken', refreshToken)
-
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
     return response.data;
   } catch (error) {
-    if (error.response?.data) {
-      const errData = error.response.data;
-      throw new Error(errData.detail || 'Login failed');
-    } else {
-      throw new Error('Network error or invalid response');
-    }
+    throw new Error(extractErrorMessage(error));
   }
 }
 
-
-
-export async function register({name, email, password}) {
-  try{
-    const response = await api.post('/register', {name, email, password});
-
+export async function register({ name, email, password }) {
+  try {
+    const response = await api.post("/register", { name, email, password });
     return response.data;
   } catch (error) {
-    if (error.response?.data) {
-      const errData = error.response.data;
-      throw new Error(errData.detail || 'Register failed');
-    } else {
-      throw new Error('Network error or invalid response');
-    }
+    throw new Error(extractErrorMessage(error));
   }
 }
-  
-  

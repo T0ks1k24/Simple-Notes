@@ -45,7 +45,7 @@ public class NoteController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> CreateNote([FromBody] NoteDto note)
+    public async Task<IActionResult> CreateNote([FromBody] NoteAddDto note)
     {
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? User.FindFirst("sub")?.Value;
 
