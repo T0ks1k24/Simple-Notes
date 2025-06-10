@@ -1,0 +1,87 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\coding\\simple-notes\\backend\\noteService\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{728B102C-FD57-4F40-823D-367C8DE78025}|API\\API.csproj|d:\\coding\\simple-notes\\backend\\noteservice\\api\\controllers\\notecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{728B102C-FD57-4F40-823D-367C8DE78025}|API\\API.csproj|solutionrelative:api\\controllers\\notecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CC923B68-267E-4D4C-B6C4-798ED030D1BD}|Application\\Application.csproj|d:\\coding\\simple-notes\\backend\\noteservice\\application\\services\\noteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CC923B68-267E-4D4C-B6C4-798ED030D1BD}|Application\\Application.csproj|solutionrelative:application\\services\\noteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CC923B68-267E-4D4C-B6C4-798ED030D1BD}|Application\\Application.csproj|d:\\coding\\simple-notes\\backend\\noteservice\\application\\interfaces\\inoteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CC923B68-267E-4D4C-B6C4-798ED030D1BD}|Application\\Application.csproj|solutionrelative:application\\interfaces\\inoteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{413F18AB-C66D-4800-9436-F9B647C90240}|Domain\\Domain.csproj|d:\\coding\\simple-notes\\backend\\noteservice\\domain\\models\\noteadddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{413F18AB-C66D-4800-9436-F9B647C90240}|Domain\\Domain.csproj|solutionrelative:domain\\models\\noteadddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "INoteService.cs",
+              "DocumentMoniker": "D:\\coding\\simple-notes\\backend\\noteService\\Application\\Interfaces\\INoteService.cs",
+              "RelativeDocumentMoniker": "Application\\Interfaces\\INoteService.cs",
+              "ToolTip": "D:\\coding\\simple-notes\\backend\\noteService\\Application\\Interfaces\\INoteService.cs",
+              "RelativeToolTip": "Application\\Interfaces\\INoteService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T10:38:29.42Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NoteService.cs",
+              "DocumentMoniker": "D:\\coding\\simple-notes\\backend\\noteService\\Application\\Services\\NoteService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\NoteService.cs",
+              "ToolTip": "D:\\coding\\simple-notes\\backend\\noteService\\Application\\Services\\NoteService.cs",
+              "RelativeToolTip": "Application\\Services\\NoteService.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA1wBcAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T10:37:58.874Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NoteAddDto.cs",
+              "DocumentMoniker": "D:\\coding\\simple-notes\\backend\\noteService\\Domain\\Models\\NoteAddDto.cs",
+              "RelativeDocumentMoniker": "Domain\\Models\\NoteAddDto.cs",
+              "ToolTip": "D:\\coding\\simple-notes\\backend\\noteService\\Domain\\Models\\NoteAddDto.cs",
+              "RelativeToolTip": "Domain\\Models\\NoteAddDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T10:37:42.75Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NoteController.cs",
+              "DocumentMoniker": "D:\\coding\\simple-notes\\backend\\noteService\\API\\Controllers\\NoteController.cs",
+              "RelativeDocumentMoniker": "API\\Controllers\\NoteController.cs",
+              "ToolTip": "D:\\coding\\simple-notes\\backend\\noteService\\API\\Controllers\\NoteController.cs",
+              "RelativeToolTip": "API\\Controllers\\NoteController.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAwwDYAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T10:37:08.252Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
